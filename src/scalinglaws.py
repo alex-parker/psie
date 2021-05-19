@@ -1,6 +1,4 @@
 import numpy as np 
-import numba as nb
-import time
 
 class craterscaling:
     def __init__(self, a=0.217, b=0.333, c=0.783, 
@@ -25,7 +23,6 @@ class craterscaling:
                  delta=self.delta, rho=self.rho, scale=self.scale)
         return diams
 
-@nb.njit(fastmath=True)
 def d2D_v1(d_impactor_km=np.empty(shape=0, dtype=float), 
            v_impactor_kms=np.empty(shape=0, dtype=float), 
            theta_impact_rad=np.empty(shape=0, dtype=float), a=0.217, b=0.333, c=0.783, 
@@ -44,7 +41,6 @@ def d2D_v1(d_impactor_km=np.empty(shape=0, dtype=float),
 
         return D
 
-@nb.njit(fastmath=True)
 def broken_power_law(a1=2.0, a2=4.0, xb_in=1.0, N=1000, xmin=0.0):
 
     ### a1: index for power-law to left of break
@@ -115,17 +111,14 @@ def piecewise_power_law(    qv_in=np.array([2.0, 3.0, 5.0]),
 
 
 
-
 if __name__ == "__main__":
     ### run some test cases, maybe?
     csl =  craterscaling()
     D = sample_broken(-0.5, 5.0, 2.0, 1000, xmin=1.0)
     diams = csl.impactor_to_crater(D, np.random.uniform(1.0, 2.0, 1000), np.arccos(np.random.uniform(0, 1, 1000)**0.5))
 
-    t0 = time.time()
     for i in range(0, 10000):
         D = sample_broken(-0.5, 5.0, 2.0, 1000, xmin=1.0)
         diams = csl.impactor_to_crater(D, np.random.uniform(1.0, 2.0, 1000), np.arccos(np.random.uniform(0, 1, 1000)**0.5))
 
-    t1 = time.time()
-    print( 10000/(t1-t0) )
+

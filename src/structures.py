@@ -89,16 +89,24 @@ class ABCr:
         ### catch this case
         D_sum = 0
         if metric=='AD':
-            for i in range(data.shape[0]):
-                D_sum += metrics.ad(self.sample[i], data[i])
-                #print(data[i].shape, self.sample[i].shape)
-        elif metric=='KS':
-            for i in range(data.shape[0]):
-                D_sum += metrics.ks(self.sample[i], data[i])
-        elif metric=='Kuipers':
-            for i in range(data.shape[0]):
-                D_sum += metrics.ku(self.sample[i], data[i])
+            if data.ndim == 1:
+                D_sum = metrics.ad(self.sample, data)
+            else:
+                for i in range(0, data.ndim):
+                    D_sum += metrics.ad(self.sample[i], data[i])
 
+        elif metric=='KS':
+            if data.ndim == 1:
+                D_sum = metrics.ks(self.sample, data)
+            else:
+                for i in range(0, data.ndim):
+                    D_sum += metrics.ks(self.sample[i], data[i])
+        elif metric=='Kuipers':
+            if data.ndim == 1:
+                D_sum = metrics.ku(self.sample, data)
+            else:
+                for i in range(0, data.ndim):
+                    D_sum += metrics.ku(self.sample[i], data[i])
         else:
             ### raise an error here, eventually...
             print('test not recognized')

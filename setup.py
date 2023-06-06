@@ -6,9 +6,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="psie", # Replace with your own username
-    version="0.0.5",
+    version="0.0.9",
     author="Alex H. Parker",
-    author_email="aparker@boulder.swri.edu",
+    author_email="aparker@seti.org",
     description="The Planetary Science Inference Engine",
     long_description=long_description,
     long_description_content_type="text/markdown",

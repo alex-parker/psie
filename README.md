@@ -12,6 +12,6 @@ Requires `python` 3.6 or greater, `numpy`, and `tqdm`.
 
 `python -m pip install -r requirements.txt`
 
-`python setup.py install`
+`pip install .`
 
 Try the example iPython notebook in `examples.`

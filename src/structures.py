@@ -131,7 +131,7 @@ class ABCr:
         D_sum = 0
         if self.metric=='AD':
             if data.ndim == 1:
-                D_sum = metrics.ad(self.sample, data)
+                D_sum = ad(self.sample, data)
             else:
                 for i in range(0, data.ndim):
                     D_sum += metrics.ad(self.sample[i], data[i])
@@ -147,7 +147,7 @@ class ABCr:
                 D_sum = metrics.ku(self.sample, data)
             else:
                 for i in range(0, data.ndim):
-                    D_sum += metrics.ku(self.sample[i], data[i])
+                    D_sum += ku(self.sample[i], data[i])
         else:
             ### raise an error here, eventually...
             print('test not recognized')
@@ -176,10 +176,10 @@ class ABCr:
         for key in data.keys():
             if self.metric=='AD':
                 if data[key].ndim == 1:
-                    D_sum += metrics.ad(self.sample[key], data[key])
+                    D_sum += ad(self.sample[key], data[key])
                 else:
                     for i in range(0, data[key].ndim):
-                        D_sum += metrics.ad(self.sample[key][i], data[key][i])
+                        D_sum += ad(self.sample[key][i], data[key][i])
 
             elif self.metric=='KS':
                 if data[key].ndim == 1:
@@ -189,23 +189,23 @@ class ABCr:
                         D_sum += metrics.ks(self.sample[key][i], data[key][i])
             elif self.metric=='Kuipers':
                 if data[key].ndim == 1:
-                    D_sum += metrics.ku(self.sample[key], data[key])
+                    D_sum += ku(self.sample[key], data[key])
                 else:
                     for i in range(0, data[key].ndim):
-                        D_sum += metrics.ku(self.sample[key][i], data[key][i])
+                        D_sum += ku(self.sample[key][i], data[key][i])
 
             elif self.metric=='KuipersPop':
                 if data[key].ndim == 1:
                     if self.sample[key].size == 0:
                         D_sum += 1.0*data[key].size
                     else:
-                        D_sum += metrics.ku(self.sample[key], data[key]) * (max(self.sample[key].size,data[key].size) / min(self.sample[key].size,data[key].size))
+                        D_sum += ku(self.sample[key], data[key]) * (max(self.sample[key].size,data[key].size) / min(self.sample[key].size,data[key].size))
                 else:
                     for i in range(0, data[key].ndim):
                         if self.sample[key][i].size == 0:
                             D_sum += 1.0*data[key][i].size
                         else:
-                            D_sum += metrics.ku(self.sample[key][i], data[key][i]) * (max(self.sample[key][i].size,data[key][i].size) / min(self.sample[key][i].size,data[key][i].size))
+                            D_sum += ku(self.sample[key][i], data[key][i]) * (max(self.sample[key][i].size,data[key][i].size) / min(self.sample[key][i].size,data[key][i].size))
             else:
                 ### raise an error here, eventually...
                 print('test not recognized')
@@ -279,3 +279,7 @@ class ABCr:
         abc.test_values = self.test_values.copy()
         return abc
     
+
+
+
+#########
